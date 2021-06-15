@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post</title>
+    <title id="getid"><%= id %> </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <%- include('./nav') %> 
+    <div id="main">
+    </div>
+    <a href="/edit/<%= id %>">Edit</a>
+    <button id="delete">Delete</button>
+</body>
+
+<script>
+    const maindiv = document.getElementById('main')
+    const getid = document.getElementById('getid');
+    const deleteBut = document.getElementById("delete")
+    
+    const getData = async () => {
+        const url = `http://localhost:5000/${getid.innerText}`
+        const data = await ((await fetch(url)).json())
+
+        data.map((post) => {
+            const div = document.createElement('div')
+            div.innerHTML = `
+            <h2>${post.title}</h2>
+            <h3>Author: ${post.author}</h3>
+            <p>${post.body}</p>
+            <br/>
+        `
+            maindiv.appendChild(div)
+        })
+    }
+    getData()
+
+    deleteBut.addEventListener("click" , (e)=>{
+        e.preventDefault();
+
+        fetch(`http://localhost:5000/${getid.innerText}` , {
+            method:"DELETE",
+        }).then(res => {
+            console.log(res)
+            window.location.href= "http://localhost:5000/"
+        })
+    })
+</script>
+
+</html>

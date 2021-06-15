@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <%- include('./nav') %>
+        <h1>salut</h1>
+        <form action="/insert" method="POST">
+            <label>Title</label>
+            <input type="text" name="title" id="title">
+            <br>
+
+            <label>Author</label>
+            <input type="text" name="author" id="author">
+            <br>
+
+            <label>Text</label>
+            <textarea name="body" id="textBody" cols="30" rows="10"></textarea>
+            <br>
+
+            <label>Description</label>
+            <input type="text" name="description" id="description">
+            <br>
+            <button type="submit">submit</button>
+        </form>
+
+        <button id="test">Troll</button>
+</body>
+
+<script>
+    const title = document.getElementById("title");
+    const author = document.getElementById("author");
+    const text = document.getElementById("textBody")
+    const description = document.getElementById("description")
+    const test = document.getElementById("test")
+
+    let data
+
+    test.addEventListener('click', (e) => {
+        e.preventDefault();
+        data = {
+            title: title.value,
+            body: text.value,
+            author: author.value,
+            description: description.value,
+        }
+        console.log(data);
+
+        fetch('http://localhost:5000/insert', {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'} ,
+            body: JSON.stringify(data)
+        }).then(res => {
+            console.log(res);
+            window.location.href = "http://localhost:5000/";
+        })
+    })
+</script>
+
+</html>

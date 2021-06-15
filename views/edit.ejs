@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <%- include('./nav') %>
+        <form action="/edit/<%= id %>" method="POST">
+            <label>New Title</label>
+            <input type="text" name="title">
+            <br>
+
+            <label>New Author</label>
+            <input type="text" name="author">
+            <br>
+
+            <label>New Text</label>
+            <textarea name="body" id="textBody" cols="30" rows="10"></textarea>
+            <br>
+
+            <label>New Description</label>
+            <input type="text" name="description">
+            <br>
+            <button type="submit">submit</button>
+        </form>
+</body>
+</html>
